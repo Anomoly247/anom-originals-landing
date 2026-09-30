@@ -8,6 +8,8 @@ import { useState } from "react";
 import { getLoginUrl } from "@/const";
 import Gallery from "@/components/Gallery";
 import ShareButtons from "@/components/ShareButtons";
+import { useAOBridge } from "@/contexts/AOBridgeContext";
+import { buildMissionHandoffUrl } from "@/lib/aoMissions";
 
 /**
  * Design Philosophy: Cyberpunk Neon Maximalism
@@ -19,6 +21,7 @@ import ShareButtons from "@/components/ShareButtons";
 
 export default function Home() {
   const { user, isAuthenticated, logout } = useAuth();
+  const bridge = useAOBridge();
   const [formData, setFormData] = useState({
     name: "",
     email: "",
@@ -118,6 +121,19 @@ export default function Home() {
                 <div className="flex gap-4">
                   <Button className="bg-primary text-primary-foreground hover:bg-primary/80 neon-border">
                     Get Started
+                  </Button>
+                  <Button
+                    variant="outline"
+                    className="border-[#00eaff] text-[#00eaff] hover:bg-[#00eaff]/10"
+                    onClick={() => {
+                      window.location.href = buildMissionHandoffUrl(
+                        bridge,
+                        "make-something-kind",
+                        `originals:${Date.now()}`,
+                      );
+                    }}
+                  >
+                    Join an AO Mission
                   </Button>
                   <Button
                     variant="outline"
