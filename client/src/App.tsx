@@ -3,6 +3,7 @@ import NotFound from "@/pages/NotFound";
 import { Route, Switch } from "wouter";
 import ErrorBoundary from "./components/ErrorBoundary";
 import { ThemeProvider } from "./contexts/ThemeContext";
+import { AOBridgeProvider } from "./contexts/AOBridgeContext";
 import Home from "./pages/Home";
 import Shop from "./pages/Shop";
 import Checkout from "./pages/Checkout";
@@ -29,14 +30,16 @@ function Router() {
 function App() {
   return (
     <ErrorBoundary>
-      <ThemeProvider
-        defaultTheme="dark"
-        // switchable
-      >
-        <TooltipProvider>
-          <Router />
-        </TooltipProvider>
-      </ThemeProvider>
+      <AOBridgeProvider>
+        <ThemeProvider
+          defaultTheme="dark"
+          // switchable
+        >
+          <TooltipProvider>
+            <Router />
+          </TooltipProvider>
+        </ThemeProvider>
+      </AOBridgeProvider>
     </ErrorBoundary>
   );
 }
